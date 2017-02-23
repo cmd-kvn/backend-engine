@@ -1,7 +1,8 @@
 const http = require('http');
 const app = require('./lib/app');
 
-// const updater = require('./routes/update-user');
+// const findAndUpdate = require('./lib/find-users');
+
 
 require('./lib/connection');
 
@@ -13,4 +14,12 @@ server.listen(port, () => {
 });
 
 // TODO: add function to make a list of users to update; users who recently logged in 
-// setInterval(updater/*update function here*/, 86400);
+// setInterval(/* () => 
+
+//- some function to save the updated users to the db
+//- import the user model and run the methods to find all users (or some) then let the update function run on the users
+//- update function here*/
+
+// findAndUpdate(new Date())
+// , 86400);
+
