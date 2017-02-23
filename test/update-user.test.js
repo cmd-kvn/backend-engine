@@ -2,8 +2,8 @@ const assert = require('chai').assert;
 
 const updater = require('../lib/update-user');
 
-describe.only('update-user function', () => {
- 
+describe('update-user function', () => {
+
     var dummyUser = {
         username: 'Testy',
         hash: '$2a$08$F5f7nZtejb5o6N6kZ.XAP.kGlWCGoCnkOAgavSO/xd8LQq121wyEy',
@@ -41,21 +41,41 @@ describe.only('update-user function', () => {
         reset(dummyUser);
         dummyUser = updater(new Date('2016-02-17'), dummyUser);
         assert.notEqual(dummyUser.job.job_name.jobLevel, 'Entry');
+        assert.notEqual(dummyUser.job.job_name.jobLevel, 'Senior');
         assert.equal(dummyUser.job.job_name.jobLevel, 'Mid-level');
         assert.notEqual(dummyUser.job.job_name.monthlySalary, 1000);
+        assert.notEqual(dummyUser.job.job_name.monthlySalary, 2000);
         assert.equal(dummyUser.job.job_name.monthlySalary, 1500);
     });
 
+    it('updates the bank account', () => {
+        reset(dummyUser);
+        dummyUser = updater(new Date('2016-02-11'), dummyUser);
+        assert.equal(dummyUser.bank_account, 201000);
+    });
+
+    it('updates the networth', () => {
+        reset(dummyUser);
+        dummyUser = updater(new Date('2016-02-12'), dummyUser);
+        assert.equal(dummyUser.networth, 202000);
+    });
+
+    it('changes retired to true if networth > 1 million', () => {
+        reset(dummyUser);
+        dummyUser = updater(new Date('2017-4-10'), dummyUser);
+        assert.isTrue(dummyUser.retired);
+    });
+
     function reset(obj) {
-        obj.retired = false,
+        obj.retired = false;
         obj.age = 18;
-        obj.bank_account = 200000,
-        obj.networth = obj.bank_account,
-        obj.assets = [],
+        obj.bank_account = 200000;
+        obj.networth = obj.bank_account;
+        obj.assets = [];
         obj.job.job_name.jobLevel = 'Entry';
         obj.job.job_name.monthlySalary = 1000;
         obj.job.job_name.promotionInterval = 0;
-       
+
         return obj;
     }
 });
