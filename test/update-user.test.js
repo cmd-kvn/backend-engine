@@ -37,6 +37,15 @@ describe.only('update-user function', () => {
         assert.equal(dummyUser.job.job_name.promotionInterval, 1);
     });
 
+    it('updates the jobLevel and monthly salary', () => {
+        reset(dummyUser);
+        dummyUser = updater(new Date('2016-02-17'), dummyUser);
+        assert.notEqual(dummyUser.job.job_name.jobLevel, 'Entry');
+        assert.equal(dummyUser.job.job_name.jobLevel, 'Mid-level');
+        assert.notEqual(dummyUser.job.job_name.monthlySalary, 1000);
+        assert.equal(dummyUser.job.job_name.monthlySalary, 1500);
+    });
+
     function reset(obj) {
         obj.retired = false,
         obj.age = 18;
