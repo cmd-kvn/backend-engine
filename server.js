@@ -1,7 +1,9 @@
 const http = require('http');
 const app = require('./lib/app');
+require('mongoose');
 
-// const findAndUpdate = require('./lib/find-users');
+// const findAndUpdate = require('./lib/update-user');
+// const User = require('./lib/models/user.model');
 
 
 require('./lib/connection');
@@ -14,12 +16,26 @@ server.listen(port, () => {
 });
 
 // TODO: add function to make a list of users to update; users who recently logged in 
-// setInterval(/* () => 
+// setInterval(/* 
 
-//- some function to save the updated users to the db
-//- import the user model and run the methods to find all users (or some) then let the update function run on the users
-//- update function here*/
+// 3 layer cb function:
+// - 1st layer: wrapper/cb
+// - 2nd layer: find users
+//		- 3rd layer: update-users.js(new Date(), users) forEach user
+//	save users to db
 
-// findAndUpdate(new Date())
-// , 86400);
+// */ , 86400);
 
+
+/* test setInterval
+// var banana ={age: 1};
+// setInterval(addAge, 1000);
+
+function addAge() {
+	
+	banana.age += 1;
+	console.log(banana.age);
+	// user.save();
+	// return user;
+}
+*/
